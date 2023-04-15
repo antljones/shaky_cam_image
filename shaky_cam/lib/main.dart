@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Shaky-Cam Image Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,125 +24,91 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Shaky-Cam Image Demo'),
 
     );
   }
 }
 
-class MyButton extends StatelessWidget {
-  const MyButton({super.key});
+void openMenuOption(String menuOption) {
+
+}
+
+class StatelessMenuWidget extends StatelessWidget {
+  const StatelessMenuWidget({super.key});
+
+  final String addImage = 'Add A New Image';
+  final String removeImage = "Delete Image";
+  final String setXFunction = "Set Clip X Funcion";
+  final String setYFunction = "Set Clip Y Function";
+  final String setSpeed = "Set Speed";
+  final String saveToAVI = 'Save To AVI';
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print('MyButton was tapped!');
-      },
-      child: Container(
-        height: 50.0,
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.lightGreen[500],
-        ),
-        child: const Center(
-          child: Text('Engage'),
-        ),
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+            onPressed: () { 
+              openMenuOption(addImage); 
+            } ,
+            child: Text(addImage),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+            onPressed: () {
+              openMenuOption(removeImage);
+            },
+            child: Text(removeImage),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+            onPressed: () {
+              openMenuOption(setXFunction);
+            },
+            child: Text(setXFunction),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+            onPressed: () {
+              openMenuOption(setYFunction);
+            },
+            child: Text(setYFunction),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+            onPressed: () {
+              openMenuOption(setSpeed);
+            },
+            child: Text(setSpeed),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+            onPressed: () {
+              openMenuOption(saveToAVI);
+            },
+            child: Text(saveToAVI),
+          ),
+        ],
       ),
     );
   }
 }
-
-class SelectableButton extends StatefulWidget {
-  const SelectableButton({
-    super.key,
-    //required this.selected,
-    this.style,
-    required this.onPressed,
-    required this.child,
-  });
-
-  //inal bool selected;
-  final ButtonStyle? style;
-  final VoidCallback? onPressed;
-  final Widget child;
-
-  @override
-  State<SelectableButton> createState() => _SelectableButtonState();
-}
-
-class _SelectableButtonState extends State<SelectableButton> {
-  late final MaterialStatesController statesController;
-
-  @override
-  void initState() {
-    super.initState();
-    statesController = MaterialStatesController(
-       // <MaterialState>{if (widget.selected) MaterialState.selected}
-       );
-  }
-
-  @override
-  void didUpdateWidget(SelectableButton oldWidget) {
-    /*super.didUpdateWidget(oldWidget);
-    if (widget.selected != oldWidget.selected) {
-      statesController.update(MaterialState.selected, widget.selected);
-    }*/
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      statesController: statesController,
-      onPressed: widget.onPressed,
-      child: widget.child,
-    );
-  }
-}
-
-class BuildList extends StatefulWidget {
-  const BuildList({super.key});
-
-
-
-    @override
-  State<BuildList> createState() => _BuildListState();
-}
-
-class _BuildListState extends State<BuildList> {
-
-  bool selected = false;
-  final List<String> entries = <String>['Add Image', 'Duplicate Image', 'Set X Equation', 'Set Y Equation', 'Set X Limit', 'Set Y Limit', 'Edit Speed', 'Save to AVI',];
-  final List<int> colorCodes = <int>[400, 200, 600, 500, 100, 50, 25, 10];
-
-    @override
-    Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(8),
-      itemCount: entries.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          height: 50,
-          width: 100,
-          color: Colors.amber[colorCodes[index]],
-          child: Center(child: SelectableButton(
-                          onPressed: () {
-                            setState(() {
-                                print(entries[index]);
-                                 });
-                              },
-                              child: Text(entries[index]),
-        ),
-          )
-        );
-      }
-    );
-  }
-
-}
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -163,21 +129,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   String _canvasImage = '';
 
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-      _canvasImage='';
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,29 +149,19 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Container(
-          child: Column(
+        child: Row(
+          children: [ 
+            Column (
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    child: const BuildList()
-                  ),
                   Column(
-                      children: [                   
-                        const Text(
-                          'You have pushed the button this many times:',
-                        ),
-                        Text(
-                          '$_counter',
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                           /* Expanded(
-                          child: Image.asset('$_canvasImage'),
-                        ),*/
+                      children: const [                   
+                        StatelessMenuWidget(),
                       ],
                   ),
                 ],
               ),
+          ],
         )
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
